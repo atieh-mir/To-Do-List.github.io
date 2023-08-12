@@ -7,7 +7,7 @@ function addTask(){
     }
     else {
         let li=document.createElement("li");
-        li.innerHtml =inputBox.value;
+        li.innerHTML =inputBox.value;
         listContainer.appendChild(li);
         let span = document.createElement("span");
         span.innerHTML="\u00d7"
