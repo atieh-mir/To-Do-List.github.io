@@ -1,4 +1,5 @@
 const playBoard = document.querySelector(".play-board");
+const controls = document.querySelectorAll(".controls i");
 //const score = document.querySelector(".score");
 //const highScore = document.querySelector(".high-score");
 
@@ -14,12 +15,6 @@ let highScore=localStorage.getItem("highScore")||0;
 let highScoreGame=document.querySelector('.high-score').innerText="High Score : " +highScore;
 
 
-
-
-function callFunc() {
-    changeFoodPosition();
-}
-
 const changeFoodPosition = () => {
     foodX = Math.floor(Math.random() * 30) + 1;
     foodY = Math.floor(Math.random() * 30) + 1;
@@ -30,6 +25,27 @@ let handleGameOver=()=>{
     alert('Game Over...')
     location.reload();
 }
+
+const changeDirection=(e) => {
+    if (e.key === "ArrowUp"){
+        velocityX = 0;
+        velocityY = -1;
+    } else if (e.key === "ArrowDown") {
+        velocityX = 0;
+        velocityY = 1;
+    } else if (e.key === "ArrowLeft"){
+        velocityX = -1;
+        velocityY = 0;
+    } else if (e.key === "ArrowRight") {
+        velocityX = 1;
+        velocityY = 0;
+    }
+    createElement();
+};
+controls.forEach(key=>{
+        key.addEventListener("click",()=>changeDirection({key:key.dataset.key}));
+    }
+)
 
 const createElement = () => {
     if (gameOver) return handleGameOver();
@@ -74,25 +90,7 @@ const createElement = () => {
 
 
 
-document.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowUp"){
-        velocityX = 0;
-        velocityY = -1;
-    } else if (e.key === "ArrowDown") {
-        velocityX = 0;
-        velocityY = 1;
-    } else if (e.key === "ArrowLeft"){
-        velocityX = -1;
-        velocityY = 0;
-    } else if (e.key === "ArrowRight") {
-        velocityX = 1;
-        velocityY = 0;
-    }
-});
-
-
-
-
+changeFoodPosition();
 setIntervalId=setInterval(createElement, 125);
-callFunc();
+
 
